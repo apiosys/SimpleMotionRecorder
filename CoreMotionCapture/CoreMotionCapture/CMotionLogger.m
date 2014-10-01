@@ -18,7 +18,7 @@
 {
 	if(_mtxObj == nil)
 		_mtxObj = [[NSObject alloc]init];
-
+	
 	return _mtxObj;
 }
 
@@ -33,13 +33,13 @@
 +(CMotionLogger *)theLogger
 {
 	static CMotionLogger *loggerMgr;
-
+	
 	static dispatch_once_t onceToken;
 	
 	dispatch_once(&onceToken, ^{
 		loggerMgr = [[CMotionLogger alloc] init];
 	});
-
+	
 	return loggerMgr;
 }
 
@@ -49,30 +49,30 @@
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	
 	NSString *documentsDirectory = [paths objectAtIndex:0];
-
+	
 	NSLocale *usLocal = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
 	NSDateFormatter *fmtr = [[NSDateFormatter alloc]init];
 	[fmtr setDateFormat:@"yyyy-MM-dd-HHmmss"];
 	[fmtr setLocale:usLocal];
-
+	
 	//make a file name to write the data to using the documents directory:
 	NSString *fileName = [NSString stringWithFormat:@"%@_log.txt", [fmtr stringFromDate:[NSDate date]]];
 	fileName = [documentsDirectory stringByAppendingPathComponent:fileName];
 	
-	NSMutableArray *arrMatrixData = nil;
+	NSMutableArray *arrSensorData = nil;
 	@synchronized(self.mtxObj)
 	{
-		arrMatrixData = self.arrAttitudeInfo;
+		arrSensorData = self.arrAttitudeInfo;
 		_arrAttitudeInfo = nil;//So the next component goes into a different array
 	}
-
+	
 	NSMutableString *strFileInfo = [[NSMutableString alloc]init];
 	//save content to the documents directory
-	for(CSensorSampleInfoContainer *mtrxInfo in arrMatrixData)
+	for(CSensorSampleInfoContainer *sensorInfo in arrSensorData)
 	{
-		[strFileInfo appendString:[mtrxInfo printableString]];
+		[strFileInfo appendString:[sensorInfo printableString]];
 	}
-
+	
 	[strFileInfo writeToFile:fileName
 					  atomically:NO
 						 encoding:NSStringEncodingConversionAllowLossy
