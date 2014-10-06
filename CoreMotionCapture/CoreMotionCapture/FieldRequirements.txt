@@ -1,0 +1,49 @@
+Field ID - Field Data
+
+-3) date: Format is YYYYMMDD
+-2) time: Format is HHMMSS
+-1) elapsedTime(s): This is time since the beginning of the recording.  The
+1st epoch is 0, the 2nd epoch is 0.03125, the 3rd epoch is 0.0625, etc.
+
+1) xMag(uT): Calibrated magnetometer values
+2) yMag(uT): see above
+3) zMag(uT): see above
+
+4) xAccel(g): Calibrated accelerometer values
+5) yAccel(g): see above
+6) zAccel(g): see above
+
+7) latitude(deg): From GPS
+8) longitude(deg): From GPS
+9) altitude(m): From GPS
+
+10) xRate(rad/sec): Not sure if this is calibrated or not
+11) yRate(rad/sec): See above
+12) zRate(rad/sec): See above
+
+13) roll(rad): Orientation of the phone
+14) pitch(rad): See above
+15) yaw(rad): See above
+
+16) xMagRaw(uT): Uncalibrated magnetometer values
+17) yMagRaw(uT): see above
+18) zMagRaw(uT): see above
+
+19) locationTime(s): Time of the GPS fix measured from the
+beginning of the recording
+
+20) hAccuracy(m): From GPS
+21) vAccuracy(m): See above
+22) speed(m/sec): From GPS
+23) acceleration(m/sec^2): Not used
+
+In addition to the above fields, we need to add the raw accelerometer
+values.  You can just append these columns:
+
+24) xAccelRaw(g): Unalibrated accelerometer values
+25) yAccelRaw(g): see above
+26) zAccelRaw(g): see above
+
+
+NOTE: Fields -1, -2, & -3 are labled that way because they aren't sensor based values, but rather just time info.
+I just number the fields this way as a convenience.

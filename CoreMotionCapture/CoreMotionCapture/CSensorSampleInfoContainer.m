@@ -64,9 +64,6 @@ static NSDate *m_startRecordingTime;//Under no circumstance does this become a p
 
 +(void)setStartRecTime:(NSDate *)startRecTime
 {
-	if(m_startRecordingTime != nil)
-		return;
-
 	m_startRecordingTime = startRecTime;
 }
 
@@ -97,7 +94,6 @@ static NSDate *m_startRecordingTime;//Under no circumstance does this become a p
 	NSString *strRecordTime;
 	
 	NSString *strInfo;
-//	NSString *strMotion;
 	NSString *strGyroInfo;
 	NSString *strLocation;
 	NSString *strMotionRate;
@@ -173,13 +169,12 @@ static NSDate *m_startRecordingTime;//Under no circumstance does this become a p
 												self.motionData.userAcceleration.z];
 	}
 
-	//Field
-	NSString *strTimeSinceStart = [NSString stringWithFormat:@"%.5lf",
-											 [CSensorSampleInfoContainer.startRecTime timeIntervalSinceNow] * -1.0];
+	//Field - 1
+	NSString *strTimeSinceStart = [NSString stringWithFormat:@"%.5lf", self.offsetRecordTimeOffset];
 
 	strInfo = [NSString stringWithFormat:@"%@ %@ %@ %@ %@ %@ %@ %@ %@ %@ \n",
-				  strRecordTime, //= -3, -2
-				  strTimeSinceStart,
+				  strRecordTime, //-3, -2
+				  strTimeSinceStart,//-1
 				  strCalibratedMagnetrometer,//1, 2, 3
 				  strCalibratedAccelerometer,//4, 5, 6,
 				  strLocation,//7, 8, 9

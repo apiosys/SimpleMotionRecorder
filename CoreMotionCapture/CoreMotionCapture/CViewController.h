@@ -11,4 +11,6 @@
 
 @interface CViewController : UIViewController<CLLocationManagerDelegate>
 
+@property(nonatomic, weak) IBOutlet UILabel *lblAppInfo;
+
 @end

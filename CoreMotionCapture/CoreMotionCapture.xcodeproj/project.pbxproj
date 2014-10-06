@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		053BF48C19E3159D000DE3B0 /* FieldRequirements.txt in Resources */ = {isa = PBXBuildFile; fileRef = 053BF48A19E3159D000DE3B0 /* FieldRequirements.txt */; };
+		053BF48D19E3159D000DE3B0 /* TemplateIcon2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 053BF48B19E3159D000DE3B0 /* TemplateIcon2x.png */; };
 		054D0D5819D5D90E00C0C1A3 /* CSensorSampleInfoContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 054D0D5719D5D90E00C0C1A3 /* CSensorSampleInfoContainer.m */; };
 		054D0D5A19D5DAFD00C0C1A3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054D0D5919D5DAFD00C0C1A3 /* CoreLocation.framework */; };
 		05C9087F1974572C00A1534D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9087E1974572C00A1534D /* Foundation.framework */; };
@@ -40,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		053BF48A19E3159D000DE3B0 /* FieldRequirements.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FieldRequirements.txt; sourceTree = "<group>"; };
+		053BF48B19E3159D000DE3B0 /* TemplateIcon2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TemplateIcon2x.png; sourceTree = "<group>"; };
 		054D0D5619D5D90E00C0C1A3 /* CSensorSampleInfoContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSensorSampleInfoContainer.h; sourceTree = "<group>"; };
 		054D0D5719D5D90E00C0C1A3 /* CSensorSampleInfoContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSensorSampleInfoContainer.m; sourceTree = "<group>"; };
 		054D0D5919D5DAFD00C0C1A3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -156,6 +160,8 @@
 				05C908871974572C00A1534D /* InfoPlist.strings */,
 				05C9088A1974572C00A1534D /* main.m */,
 				05C9088C1974572C00A1534D /* CoreMotionCapture-Prefix.pch */,
+				053BF48A19E3159D000DE3B0 /* FieldRequirements.txt */,
+				053BF48B19E3159D000DE3B0 /* TemplateIcon2x.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -226,6 +232,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Apio Systems";
 				TargetAttributes = {
+					05C9087A1974572C00A1534D = {
+						DevelopmentTeam = PR6C6UCWP8;
+					};
 					05C9089E1974572C00A1534D = {
 						TestTargetID = 05C9087A1974572C00A1534D;
 					};
@@ -256,6 +265,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				05C908951974572C00A1534D /* Main_iPad.storyboard in Resources */,
+				053BF48C19E3159D000DE3B0 /* FieldRequirements.txt in Resources */,
+				053BF48D19E3159D000DE3B0 /* TemplateIcon2x.png in Resources */,
 				05C9089A1974572C00A1534D /* Images.xcassets in Resources */,
 				05C908921974572C00A1534D /* Main_iPhone.storyboard in Resources */,
 				05C908891974572C00A1534D /* InfoPlist.strings in Resources */,
@@ -417,6 +428,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreMotionCapture/CoreMotionCapture-Prefix.pch";
 				INFOPLIST_FILE = "CoreMotionCapture/CoreMotionCapture-Info.plist";
@@ -430,6 +442,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreMotionCapture/CoreMotionCapture-Prefix.pch";
 				INFOPLIST_FILE = "CoreMotionCapture/CoreMotionCapture-Info.plist";

@@ -33,12 +33,6 @@
 -(void)updateMagnetrometer:(CMMagnetometerData *)magData;
 -(void)updateAccelerometer:(CMAccelerometerData *)accelerometerData;
 
--(void)updateMotion:(double)UserAccelX uaY:(double)UserAccelY uaZ:(double)UserAccelZ
-					 grX:(double)gravityX grY:(double)gravityY grZ:(double)gravityZ
-					 rtX:(double)rotationX rtY:(double)rotationY rtZ:(double)rotationZ
-					roll:(double)Roll pitch:(double)Pitch yaw:(double)Yaw
-		 attitudeInfo:(CMAttitude *)cmAttitude;
-
 -(void)configureGyro:(CViewController *)vc;
 -(void)configureMotion:(CViewController *)vc;
 -(void)configureLocationGps:(CViewController *)vc;
@@ -53,6 +47,7 @@
 @implementation CViewController
 
 @synthesize txtvwGyro = _txtvwGyro;
+@synthesize lblAppInfo = _lblAppInfo;
 @synthesize currSample = _currSample;
 @synthesize txtvwAccel = _txtvwAccel;
 @synthesize bIsRunning = _bIsRunning;
@@ -79,16 +74,21 @@
 {
 	[super viewDidLoad];
 	
+	NSString *bundleName = [[NSBundle mainBundle] bundleIdentifier];
+	
+	id localizedValue = [[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleShortVersionString"];
+	NSString *strVersion =  (localizedValue != nil) ? localizedValue : [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+	
+	NSString *strVer = [NSString stringWithFormat:@"Ver: %@", strVersion];
+	NSString *strName = [[bundleName componentsSeparatedByString:@"."] lastObject];
+
+
+	self.lblAppInfo.text = [NSString stringWithFormat:@"%@ - %@", strName, strVer];
+	
 	// Do any additional setup after loading the view, typically from a nib.
 	self.bIsRunning = FALSE;
 	
 	self.attitudeReferenceFrame = CMAttitudeReferenceFrameXArbitraryCorrectedZVertical;
-}
-
--(void)didReceiveMemoryWarning
-{
-	[super didReceiveMemoryWarning];
-	// Dispose of any resources that can be recreated.
 }
 
 -(IBAction)onStart:(UIButton *)sender
@@ -96,6 +96,7 @@
 	if(self.bIsRunning == TRUE)
 		return;
 
+	//Before anything else happens - mark the start recording time!
 	CSensorSampleInfoContainer.startRecTime = [NSDate date];
 	
 	self.bIsRunning = TRUE;
@@ -106,6 +107,10 @@
 	[self configureGyro:weakSelf];
 	[self configureMotion:weakSelf];
 	[self configureMagnetometer:weakSelf];
+	
+	//Initialize last since once this updates, we save the record. This is just to
+	//increase our chances all the other data will be populated before an acceleration
+	//update. It doesn't really matter, but it just may allow for a clean first record.
 	[self configureAccelerometer:weakSelf];
 }
 
@@ -139,6 +144,8 @@
 	self.bIsRunning = FALSE;
 }
 
+#pragma mark - Configure the sensor capturing.
+
 -(void)configureGyro:(CViewController *)vc
 {
 	CMMotionManager *motionManager = [(CAppDelegate *)[[UIApplication sharedApplication] delegate] sharedMotionManager];
@@ -160,7 +167,7 @@
 	{
 		[motionManager setDeviceMotionUpdateInterval:self.updateInterval];
 
-		[motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMDeviceMotion *deviceMotion, NSError *error) {
+		[motionManager startDeviceMotionUpdatesUsingReferenceFrame:self.attitudeReferenceFrame toQueue:[NSOperationQueue mainQueue] withHandler:^(CMDeviceMotion *deviceMotion, NSError *error) {
 			[vc updateMotionInfo:deviceMotion];
 		}];
 	}
@@ -212,6 +219,7 @@
 -(void)updateGyro:(CMGyroData *)gyroData
 {
 	self.currSample.gyroData = gyroData;
+	self.txtvwGyro.text = [NSString stringWithFormat:@"X - %.5lf Y - %.5lf Z - %.5lf", gyroData.rotationRate.x, gyroData.rotationRate.y, gyroData.rotationRate.z];
 }
 
 -(void)updateMagnetrometer:(CMMagnetometerData *)magData
@@ -253,61 +261,8 @@
 
 -(void)updateMotionInfo:(CMDeviceMotion *)motionData
 {
-	//--TESTING
-	CMMotionManager *motionManager = [(CAppDelegate *)[[UIApplication sharedApplication] delegate] sharedMotionManager];
-
-	if(motionManager.isMagnetometerActive == FALSE)
-		NSLog(@"MAGNETROMETER NOT ACTIVE - WTF!!!!!");
-
-	if(motionManager.isMagnetometerAvailable == FALSE)
-		NSLog(@"NO CALIBRATED MAGNETROMETER - WTF!!!!!");
-
-	
-	if(motionData.magneticField.field.x == 0.0)
-		NSLog(@"Still getting shitty data!!!!!");
-	//--END TESTING
-	
-	
 	self.currSample.motionData = motionData;
-}
-
-/*
- //[weakSelf updateMotion:deviceMotion.userAcceleration.x uaY:deviceMotion.userAcceleration.y uaZ:deviceMotion.userAcceleration.z
- //						 grX:deviceMotion.gravity.x grY:deviceMotion.gravity.y grZ:deviceMotion.gravity.z
- //						 rtX:deviceMotion.rotationRate.x rtY:deviceMotion.rotationRate.y rtZ:deviceMotion.rotationRate.z
- //						roll:deviceMotion.attitude.roll pitch:deviceMotion.attitude.pitch yaw:deviceMotion.attitude.yaw
- //			 attitudeInfo:deviceMotion.attitude];
- */
--(void)updateMotion:(double)UserAccelX uaY:(double)UserAccelY uaZ:(double)UserAccelZ
-					 grX:(double)gravityX grY:(double)gravityY grZ:(double)gravityZ
-					 rtX:(double)rotationX rtY:(double)rotationY rtZ:(double)rotationZ
-					roll:(double)Roll pitch:(double)Pitch yaw:(double)Yaw attitudeInfo:(CMAttitude *)cmAttitude
-{
-	self.txtvwGyro.text = [NSString stringWithFormat:@"Yaw: %.2lf - Ptc: %.2lf - RL: %.2lf", Yaw, Pitch, Roll];
-	
-	CMotionLogger *logger = [CMotionLogger theLogger];
-	
-	CMatrixInfo *latestInfo = [[CMatrixInfo alloc]init];
-	
-	latestInfo.cmAtt = cmAttitude;
-	
-	latestInfo.dYaw = Yaw;
-	latestInfo.dRoll = Roll;
-	latestInfo.dPitch = Pitch;
-	
-	latestInfo.dRotationRateX = rotationX;
-	latestInfo.dRotationRateY = rotationY;
-	latestInfo.dRotationRateZ = rotationZ;
-	
-	latestInfo.dGravityX = gravityX;
-	latestInfo.dGravityY = gravityY;
-	latestInfo.dGravityZ = gravityZ;
-	
-	latestInfo.dUserAccelerationX = UserAccelX;
-	latestInfo.dUserAccelerationY = UserAccelY;
-	latestInfo.dUserAccelerationZ = UserAccelZ;
-	
-	[logger addMatrix:latestInfo];
+	self.txtvwMotion.text = [NSString stringWithFormat:@"X: %.2lf - Y: %.2lf - Z: %.2lf", motionData.gravity.x, motionData.gravity.y, motionData.gravity.z];
 }
 
 @end
