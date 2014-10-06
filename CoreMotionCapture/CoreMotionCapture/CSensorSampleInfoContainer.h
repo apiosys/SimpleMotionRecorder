@@ -16,6 +16,11 @@
 
 @interface CSensorSampleInfoContainer : NSObject
 
++(NSDate *)startRecTime;
++(void)setStartRecTime:(NSDate *)startRecTime;
+
+@property(nonatomic, strong) NSDate *dateOfRecord;
+
 @property(nonatomic, strong) CMGyroData *gyroData;
 @property(nonatomic, strong) CLLocation *locationData;
 @property(nonatomic, strong) CMDeviceMotion *motionData;

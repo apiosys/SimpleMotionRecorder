@@ -21,6 +21,7 @@
 @property(nonatomic) BOOL bIsRunning;
 @property(nonatomic, strong) CSensorSampleInfoContainer *currSample;
 
+@property (nonatomic) CMAttitudeReferenceFrame attitudeReferenceFrame;
 @property(nonatomic, readonly) NSTimeInterval updateInterval;
 @property (weak, nonatomic) IBOutlet UITextField *txtvwMotion;
 @property (weak, nonatomic) IBOutlet UITextField *txtvwAccel;
@@ -57,6 +58,7 @@
 @synthesize bIsRunning = _bIsRunning;
 @synthesize txtvwMotion = _txtvwMotion;
 @synthesize txtvwLocation = _txtvwLocation;
+@synthesize attitudeReferenceFrame = _attitudeReferenceFrame;
 
 -(NSTimeInterval) updateInterval
 {
@@ -79,6 +81,8 @@
 	
 	// Do any additional setup after loading the view, typically from a nib.
 	self.bIsRunning = FALSE;
+	
+	self.attitudeReferenceFrame = CMAttitudeReferenceFrameXArbitraryCorrectedZVertical;
 }
 
 -(void)didReceiveMemoryWarning
@@ -92,6 +96,8 @@
 	if(self.bIsRunning == TRUE)
 		return;
 
+	CSensorSampleInfoContainer.startRecTime = [NSDate date];
+	
 	self.bIsRunning = TRUE;
 	CViewController * __weak weakSelf = self;
 	
@@ -119,6 +125,9 @@
 	
 	if ([mManager isGyroActive] == YES)
 		[mManager stopGyroUpdates];
+	
+	if([mManager isMagnetometerActive] == YES)
+		[mManager stopMagnetometerUpdates];
 	
 	[locationManager stopUpdatingLocation];
 	
@@ -150,6 +159,7 @@
 	if ([motionManager isDeviceMotionAvailable] == YES)
 	{
 		[motionManager setDeviceMotionUpdateInterval:self.updateInterval];
+
 		[motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMDeviceMotion *deviceMotion, NSError *error) {
 			[vc updateMotionInfo:deviceMotion];
 		}];
@@ -225,8 +235,9 @@
 {
 	self.txtvwAccel.text = [NSString stringWithFormat:@"X: %.2lf - Y: %.2lf - Z: %.2lf", accelerometerData.acceleration.x, accelerometerData.acceleration.y, accelerometerData.acceleration.z];
 	
+	self.currSample.dateOfRecord = [NSDate date];//Date is set when accelerometer data is retreived
 	self.currSample.rawAcceleration = accelerometerData;
-	
+
 	CMotionLogger *logger = [CMotionLogger theLogger];
 	[logger addSensorSample:self.currSample];
 	
@@ -242,6 +253,21 @@
 
 -(void)updateMotionInfo:(CMDeviceMotion *)motionData
 {
+	//--TESTING
+	CMMotionManager *motionManager = [(CAppDelegate *)[[UIApplication sharedApplication] delegate] sharedMotionManager];
+
+	if(motionManager.isMagnetometerActive == FALSE)
+		NSLog(@"MAGNETROMETER NOT ACTIVE - WTF!!!!!");
+
+	if(motionManager.isMagnetometerAvailable == FALSE)
+		NSLog(@"NO CALIBRATED MAGNETROMETER - WTF!!!!!");
+
+	
+	if(motionData.magneticField.field.x == 0.0)
+		NSLog(@"Still getting shitty data!!!!!");
+	//--END TESTING
+	
+	
 	self.currSample.motionData = motionData;
 }
 
