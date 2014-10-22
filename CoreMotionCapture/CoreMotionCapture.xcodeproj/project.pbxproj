@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		052C864F19F7EE3D009CE883 /* CInfoQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C864E19F7EE3D009CE883 /* CInfoQueue.m */; };
+		052C865019F7EE3D009CE883 /* CInfoQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C864E19F7EE3D009CE883 /* CInfoQueue.m */; };
 		053BF48C19E3159D000DE3B0 /* FieldRequirements.txt in Resources */ = {isa = PBXBuildFile; fileRef = 053BF48A19E3159D000DE3B0 /* FieldRequirements.txt */; };
 		053BF48D19E3159D000DE3B0 /* TemplateIcon2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 053BF48B19E3159D000DE3B0 /* TemplateIcon2x.png */; };
 		054D0D5819D5D90E00C0C1A3 /* CSensorSampleInfoContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 054D0D5719D5D90E00C0C1A3 /* CSensorSampleInfoContainer.m */; };
@@ -28,7 +30,6 @@
 		05C908AD1974572C00A1534D /* CoreMotionCaptureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C908AC1974572C00A1534D /* CoreMotionCaptureTests.m */; };
 		05C908B71974573D00A1534D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C908B61974573D00A1534D /* CoreMotion.framework */; };
 		05C908BD19746F2200A1534D /* CMotionLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C908BC19746F2200A1534D /* CMotionLogger.m */; };
-		05C908C019746FEA00A1534D /* CMatrixInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C908BF19746FEA00A1534D /* CMatrixInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		052C864D19F7EE3D009CE883 /* CInfoQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CInfoQueue.h; sourceTree = "<group>"; };
+		052C864E19F7EE3D009CE883 /* CInfoQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CInfoQueue.m; sourceTree = "<group>"; };
 		053BF48A19E3159D000DE3B0 /* FieldRequirements.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FieldRequirements.txt; sourceTree = "<group>"; };
 		053BF48B19E3159D000DE3B0 /* TemplateIcon2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TemplateIcon2x.png; sourceTree = "<group>"; };
 		054D0D5619D5D90E00C0C1A3 /* CSensorSampleInfoContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSensorSampleInfoContainer.h; sourceTree = "<group>"; };
@@ -70,8 +73,6 @@
 		05C908B61974573D00A1534D /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		05C908BB19746F2200A1534D /* CMotionLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMotionLogger.h; sourceTree = "<group>"; };
 		05C908BC19746F2200A1534D /* CMotionLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMotionLogger.m; sourceTree = "<group>"; };
-		05C908BE19746FEA00A1534D /* CMatrixInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMatrixInfo.h; sourceTree = "<group>"; };
-		05C908BF19746FEA00A1534D /* CMatrixInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMatrixInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,10 +136,10 @@
 		05C908841974572C00A1534D /* CoreMotionCapture */ = {
 			isa = PBXGroup;
 			children = (
-				05C908BE19746FEA00A1534D /* CMatrixInfo.h */,
-				05C908BF19746FEA00A1534D /* CMatrixInfo.m */,
 				05C9088D1974572C00A1534D /* CAppDelegate.h */,
 				05C9088E1974572C00A1534D /* CAppDelegate.m */,
+				052C864D19F7EE3D009CE883 /* CInfoQueue.h */,
+				052C864E19F7EE3D009CE883 /* CInfoQueue.m */,
 				05C908BB19746F2200A1534D /* CMotionLogger.h */,
 				05C908BC19746F2200A1534D /* CMotionLogger.m */,
 				05C908901974572C00A1534D /* Main_iPhone.storyboard */,
@@ -234,6 +235,11 @@
 				TargetAttributes = {
 					05C9087A1974572C00A1534D = {
 						DevelopmentTeam = PR6C6UCWP8;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					05C9089E1974572C00A1534D = {
 						TestTargetID = 05C9087A1974572C00A1534D;
@@ -289,7 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				05C9088F1974572C00A1534D /* CAppDelegate.m in Sources */,
-				05C908C019746FEA00A1534D /* CMatrixInfo.m in Sources */,
+				052C864F19F7EE3D009CE883 /* CInfoQueue.m in Sources */,
 				05C9088B1974572C00A1534D /* main.m in Sources */,
 				05C908981974572C00A1534D /* CViewController.m in Sources */,
 				05C908BD19746F2200A1534D /* CMotionLogger.m in Sources */,
@@ -302,6 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				05C908AD1974572C00A1534D /* CoreMotionCaptureTests.m in Sources */,
+				052C865019F7EE3D009CE883 /* CInfoQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

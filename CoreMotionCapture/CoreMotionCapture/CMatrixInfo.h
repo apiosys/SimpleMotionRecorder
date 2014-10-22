@@ -24,5 +24,4 @@
 
 -(NSString *)printableString;
 
-
 @end

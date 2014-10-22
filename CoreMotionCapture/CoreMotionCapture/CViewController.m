@@ -11,14 +11,15 @@
 
 #import "CViewController.h"
 #import "CAppDelegate.h"
-#import "CMatrixInfo.h"
-#import "CMotionLogger.h"
 
 #import "CSensorSampleInfoContainer.h"
 
 @interface CViewController ()
 
 @property(nonatomic) BOOL bIsRunning;
+@property(nonatomic, weak) IBOutlet UIButton *btnStopRecording;
+@property(nonatomic, weak) IBOutlet UIButton *btnStartRecording;
+@property(nonatomic, weak) IBOutlet UIActivityIndicatorView *activityWheel;
 @property(nonatomic, strong) CSensorSampleInfoContainer *currSample;
 
 @property (nonatomic) CMAttitudeReferenceFrame attitudeReferenceFrame;
@@ -52,7 +53,10 @@
 @synthesize txtvwAccel = _txtvwAccel;
 @synthesize bIsRunning = _bIsRunning;
 @synthesize txtvwMotion = _txtvwMotion;
+@synthesize activityWheel = _activityWheel;
 @synthesize txtvwLocation = _txtvwLocation;
+@synthesize btnStopRecording = _btnStopRecording;
+@synthesize btnStartRecording = _btnStartRecording;
 @synthesize attitudeReferenceFrame = _attitudeReferenceFrame;
 
 -(NSTimeInterval) updateInterval
@@ -82,7 +86,6 @@
 	NSString *strVer = [NSString stringWithFormat:@"Ver: %@", strVersion];
 	NSString *strName = [[bundleName componentsSeparatedByString:@"."] lastObject];
 
-
 	self.lblAppInfo.text = [NSString stringWithFormat:@"%@ - %@", strName, strVer];
 	
 	// Do any additional setup after loading the view, typically from a nib.
@@ -98,16 +101,19 @@
 
 	//Before anything else happens - mark the start recording time!
 	CSensorSampleInfoContainer.startRecTime = [NSDate date];
-	
+
+	[CMotionLogger theLogger].logDelegate = self;
+	[[CMotionLogger theLogger] markAsStartDataCaptureTime];
+
 	self.bIsRunning = TRUE;
 	CViewController * __weak weakSelf = self;
-	
+
 	[self configureLocationGps:nil];
-	
+
 	[self configureGyro:weakSelf];
 	[self configureMotion:weakSelf];
 	[self configureMagnetometer:weakSelf];
-	
+
 	//Initialize last since once this updates, we save the record. This is just to
 	//increase our chances all the other data will be populated before an acceleration
 	//update. It doesn't really matter, but it just may allow for a clean first record.
@@ -119,29 +125,33 @@
 	if(self.bIsRunning == FALSE)
 		return;
 
+	[self.activityWheel startAnimating];
+	self.btnStopRecording.enabled = self.btnStartRecording.enabled = FALSE;
+
+	self.bIsRunning = FALSE;
+
 	CLLocationManager *locationManager = [(CAppDelegate *)[[UIApplication sharedApplication] delegate] sharedLocationManger];
 	CMMotionManager *mManager = [(CAppDelegate *)[[UIApplication sharedApplication] delegate] sharedMotionManager];
-	
+
 	if ([mManager isDeviceMotionActive] == YES)
 		[mManager stopDeviceMotionUpdates];
-	
+
 	if ([mManager isAccelerometerActive] == YES)
 		[mManager stopAccelerometerUpdates];
-	
+
 	if ([mManager isGyroActive] == YES)
 		[mManager stopGyroUpdates];
-	
+
 	if([mManager isMagnetometerActive] == YES)
 		[mManager stopMagnetometerUpdates];
-	
+
 	[locationManager stopUpdatingLocation];
-	
+
 	//Stop everything before you get here
 	CMotionLogger *logger = [CMotionLogger theLogger];
-	
-	[logger writeCurrentDataSet];
-	
-	self.bIsRunning = FALSE;
+	[logger finishWritingCurrentDataSet];
+
+	self.txtvwAccel.text = self.txtvwGyro.text = self.txtvwLocation.text = self.txtvwMotion.text = nil;
 }
 
 #pragma mark - Configure the sensor capturing.
@@ -149,7 +159,7 @@
 -(void)configureGyro:(CViewController *)vc
 {
 	CMMotionManager *motionManager = [(CAppDelegate *)[[UIApplication sharedApplication] delegate] sharedMotionManager];
-	
+
 	if ([motionManager isGyroAvailable] == YES)
 	{
 		[motionManager setGyroUpdateInterval:self.updateInterval];
@@ -162,7 +172,7 @@
 -(void)configureMotion:(CViewController *)vc
 {
 	CMMotionManager *motionManager = [(CAppDelegate *)[[UIApplication sharedApplication] delegate] sharedMotionManager];
-	
+
 	if ([motionManager isDeviceMotionAvailable] == YES)
 	{
 		[motionManager setDeviceMotionUpdateInterval:self.updateInterval];
@@ -176,9 +186,13 @@
 -(void)configureLocationGps:(CViewController *)vc
 {
 	CLLocationManager *locationManager = [(CAppDelegate *)[[UIApplication sharedApplication] delegate] sharedLocationManger];
-	
+
 	if([CLLocationManager locationServicesEnabled] == TRUE)
 	{
+		// Check for iOS 8. Without this guard the code will crash with "unknown selector" on iOS 7.
+		if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
+			[locationManager requestAlwaysAuthorization];
+
 		locationManager.delegate = self;
 		[locationManager startUpdatingLocation];
 	}
@@ -218,17 +232,26 @@
 
 -(void)updateGyro:(CMGyroData *)gyroData
 {
+	if(self.bIsRunning == FALSE)
+		return;
+
 	self.currSample.gyroData = gyroData;
 	self.txtvwGyro.text = [NSString stringWithFormat:@"X - %.5lf Y - %.5lf Z - %.5lf", gyroData.rotationRate.x, gyroData.rotationRate.y, gyroData.rotationRate.z];
 }
 
 -(void)updateMagnetrometer:(CMMagnetometerData *)magData
 {
+	if(self.bIsRunning == FALSE)
+		return;
+
 	self.currSample.magnetrometerData = magData;
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
+	if(self.bIsRunning == FALSE)
+		return;
+
 	if( (locations == nil) || (locations.count <= 0) )
 		return;
 	
@@ -241,6 +264,9 @@
 
 -(void)updateAccelerometer:(CMAccelerometerData *)accelerometerData
 {
+	if(self.bIsRunning == FALSE)
+		return;
+
 	self.txtvwAccel.text = [NSString stringWithFormat:@"X: %.2lf - Y: %.2lf - Z: %.2lf", accelerometerData.acceleration.x, accelerometerData.acceleration.y, accelerometerData.acceleration.z];
 	
 	self.currSample.dateOfRecord = [NSDate date];//Date is set when accelerometer data is retreived
@@ -261,8 +287,27 @@
 
 -(void)updateMotionInfo:(CMDeviceMotion *)motionData
 {
+	if(self.bIsRunning == FALSE)
+		return;
+
 	self.currSample.motionData = motionData;
 	self.txtvwMotion.text = [NSString stringWithFormat:@"X: %.2lf - Y: %.2lf - Z: %.2lf", motionData.gravity.x, motionData.gravity.y, motionData.gravity.z];
 }
+
+#pragma mark - when all data has been written
+
+-(void)allDataWritten
+{
+	if([NSThread isMainThread] == FALSE)
+	{
+		[self performSelectorOnMainThread:@selector(allDataWritten) withObject:nil waitUntilDone:FALSE];
+		return;
+	}
+
+	NSLog(@"All data written");
+	[self.activityWheel stopAnimating];
+	self.btnStopRecording.enabled = self.btnStartRecording.enabled = TRUE;
+}
+
 
 @end
