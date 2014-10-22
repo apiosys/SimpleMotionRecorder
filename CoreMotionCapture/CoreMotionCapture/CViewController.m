@@ -291,7 +291,9 @@
 		return;
 
 	self.currSample.motionData = motionData;
-	self.txtvwMotion.text = [NSString stringWithFormat:@"X: %.2lf - Y: %.2lf - Z: %.2lf", motionData.gravity.x, motionData.gravity.y, motionData.gravity.z];
+
+	self.txtvwMotion.text = [NSString stringWithFormat:@"X: %.2lf - Y: %.2lf - Z: %.2lf", motionData.magneticField.field.x, motionData.magneticField.field.y, motionData.magneticField.field.z];
+	//self.txtvwMotion.text = [NSString stringWithFormat:@"X: %.2lf - Y: %.2lf - Z: %.2lf", motionData.gravity.x, motionData.gravity.y, motionData.gravity.z];
 }
 
 #pragma mark - when all data has been written

@@ -95,6 +95,8 @@
 
 -(void)markAsStartDataCaptureTime
 {
+	self.bFinishWritingData = FALSE;
+
 	if(self.fileHandle != nil)
 		[self.fileHandle closeFile];
 	
@@ -115,49 +117,6 @@
 	self.bFinishWritingData = TRUE;
 	[self.semaphore signal];
 }
-
-/*
--(void)writeCurrentDataSet
-{
-	//get the documents directory:
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	
-	NSString *documentsDirectory = [paths objectAtIndex:0];
-	
-	NSLocale *usLocal = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-	NSDateFormatter *fmtr = [[NSDateFormatter alloc]init];
-	[fmtr setDateFormat:@"yyyy-MM-dd-HHmmss"];
-	[fmtr setLocale:usLocal];
-
-	//make a file name to write the data to using the documents directory:
-	NSString *fileName = [NSString stringWithFormat:@"%@_log.txt", [fmtr stringFromDate:[NSDate date]]];
-
-	fileName = [documentsDirectory stringByAppendingPathComponent:fileName];
-	
-	NSMutableArray *arrSensorData = nil;
-	@synchronized(self.mtxFileObj)
-	{
-		arrSensorData = self.arrAttitudeInfo;
-		_arrAttitudeInfo = nil;//So the next component goes into a different array
-	}
-
-	NSFileHandle *fileHndl = [self createAndOpenFileAtPath:fileName];
-
-	//save content to the documents directory
-	for(CSensorSampleInfoContainer *sensorInfo in arrSensorData)
-	{
-		NSData *fileData = [self dataForFileWrite:[sensorInfo printableString]];
-
-		if(fileHndl != nil)
-			[fileHndl writeData:fileData];
-	}
-
-	//[strFileInfo writeToFile:fileName
-	//				  atomically:NO
-	//					 encoding:NSStringEncodingConversionAllowLossy
-	//						 error:nil];
-}
-*/
 
 -(void)writeOutEntries
 {
