@@ -254,11 +254,11 @@
 
 	if( (locations == nil) || (locations.count <= 0) )
 		return;
-	
+
 	CLLocation *currLoc = [locations lastObject];
-	
+
 	self.currSample.locationData = currLoc;
-	
+
 	self.txtvwLocation.text = [NSString stringWithFormat:@"%.5lf %.5lf", currLoc.coordinate.latitude, currLoc.coordinate.longitude];
 }
 
