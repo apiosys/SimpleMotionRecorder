@@ -11,6 +11,6 @@
 @interface CInfoQueue : NSObject
 
 	-(NSObject *)dequeue;
-	-(void)enquue:(NSObject *)infoObj;
+	-(void)enqueue:(NSObject *)infoObj;
 
 @end

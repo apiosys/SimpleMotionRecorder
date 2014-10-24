@@ -50,7 +50,7 @@
 	return topElement;
 }
 
--(void)enquue:(NSObject *)infoObj
+-(void)enqueue:(NSObject *)infoObj
 {
 	if(infoObj == nil)
 		return;

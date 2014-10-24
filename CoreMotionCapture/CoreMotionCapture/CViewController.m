@@ -276,7 +276,7 @@
 	[logger addSensorSample:self.currSample];
 	
 	CSensorSampleInfoContainer *tmp = self.currSample;
-	self.currSample = nil;//Loose the pointer to the logger
+	self.currSample = nil;//Loose the pointer to the logger - be sure to call the constructor again.
 	
 	//We keep the most recent samples around
 	self.currSample.gyroData = tmp.gyroData;

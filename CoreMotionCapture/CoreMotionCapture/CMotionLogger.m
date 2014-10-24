@@ -18,7 +18,7 @@
 	-(NSString *)retreiveCurrentFilePathAndName;
 	-(NSData *)dataForFileWrite:(NSString *)dataString;
 	-(NSFileHandle *)createAndOpenFileAtPath:(NSString *)path;
-	-(void)writeCurrentData:(CSensorSampleInfoContainer *)sensorInfo;
+	-(BOOL)writeCurrentData:(CSensorSampleInfoContainer *)sensorInfo;
 @end
 
 @implementation CMotionLogger
@@ -109,13 +109,13 @@
 	self.fileHandle = [self createAndOpenFileAtPath:[self retreiveCurrentFilePathAndName]];
 	
 	self.writingThread = [[NSThread alloc] initWithTarget:self selector:@selector(writeOutEntries) object:nil];
-	[self.writingThread start];
+	//[self.writingThread start];
 }
 
 -(void)finishWritingCurrentDataSet
 {
 	self.bFinishWritingData = TRUE;
-	[self.semaphore signal];
+//	[self.semaphore signal];
 }
 
 -(void)writeOutEntries
@@ -126,20 +126,22 @@
 	{
 		[self.semaphore wait];
 
-		[self writeCurrentData:(CSensorSampleInfoContainer *)[self.queEntries dequeue]];
-		
+		@synchronized(self.mtxFileObj)
+		{
+			[self writeCurrentData:(CSensorSampleInfoContainer *)[self.queEntries dequeue]];
+		}
+
 		if(self.bFinishWritingData == TRUE)
 		{
-			CSensorSampleInfoContainer *sensorEntry = nil;
+			BOOL bWriteStat = FALSE;
+
 			do
 			{
-				sensorEntry = (CSensorSampleInfoContainer *)[self.queEntries dequeue];
-
-				if(sensorEntry == nil)
-					continue;
-
-				[self writeCurrentData:sensorEntry];
-			}while (sensorEntry != nil);
+				@synchronized(self.mtxFileObj)
+				{
+					bWriteStat = [self writeCurrentData:(CSensorSampleInfoContainer *)[self.queEntries dequeue]];
+				}
+			}while (bWriteStat != FALSE);
 		}
 	}
 
@@ -150,7 +152,7 @@
 	}
 
 	[self.semaphore unlock];
-	
+
 	if(self.logDelegate != nil)
 		[self.logDelegate allDataWritten];
 }
@@ -159,23 +161,37 @@
 {
 	if(sensorInfo == nil)
 		return;
+	
+	@try
+	{
+		if([self writeCurrentData:sensorInfo] == FALSE)
+			return;
+	}
+	@catch(NSException *exception)
+	{
+		NSLog(@"All jacked!: %@", exception.description);
+	}
+	@finally
+	{}
 
-	[self.queEntries enquue:sensorInfo];
-	[self.semaphore signal];
+//	[self.queEntries enqueue:sensorInfo];
+//	[self.semaphore signal];
 }
 
--(void)writeCurrentData:(CSensorSampleInfoContainer *)sensorInfo
+-(BOOL)writeCurrentData:(CSensorSampleInfoContainer *)sensorInfo
 {
 	if(sensorInfo == nil)
-		return;
+		return FALSE;
 
 	NSData *fileData = [self dataForFileWrite:[sensorInfo printableString]];
 
-	@synchronized(self.mtxFileObj)
-	{
-		if(self.fileHandle != nil)
-			[self.fileHandle writeData:fileData];
-	}
+	BOOL bRetStat = TRUE;
+	if(self.fileHandle != nil)
+		[self.fileHandle writeData:fileData];
+	else
+		return bRetStat;
+	
+	return bRetStat;
 }
 
 -(NSString *)retreiveCurrentFilePathAndName
@@ -203,7 +219,6 @@
 
 	@try
 	{
-	
 		//Making a copy of the string because there were several instances of
 		//"writeData" exceptions with the data string.
 		NSString *strDataCopy = [NSString stringWithFormat:@"%@", dataString];
