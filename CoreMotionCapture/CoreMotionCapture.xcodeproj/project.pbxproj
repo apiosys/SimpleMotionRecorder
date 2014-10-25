@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		052C4BA319FB1E3D000EECD5 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 052C4BA219FB1E3D000EECD5 /* Crashlytics.framework */; };
+		052C4BA419FB1E3D000EECD5 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 052C4BA219FB1E3D000EECD5 /* Crashlytics.framework */; };
 		052C864F19F7EE3D009CE883 /* CInfoQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C864E19F7EE3D009CE883 /* CInfoQueue.m */; };
 		052C865019F7EE3D009CE883 /* CInfoQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C864E19F7EE3D009CE883 /* CInfoQueue.m */; };
 		053BF48C19E3159D000DE3B0 /* FieldRequirements.txt in Resources */ = {isa = PBXBuildFile; fileRef = 053BF48A19E3159D000DE3B0 /* FieldRequirements.txt */; };
@@ -43,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		052C4BA219FB1E3D000EECD5 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		052C864D19F7EE3D009CE883 /* CInfoQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CInfoQueue.h; sourceTree = "<group>"; };
 		052C864E19F7EE3D009CE883 /* CInfoQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CInfoQueue.m; sourceTree = "<group>"; };
 		053BF48A19E3159D000DE3B0 /* FieldRequirements.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FieldRequirements.txt; sourceTree = "<group>"; };
@@ -84,6 +87,7 @@
 				05C908B71974573D00A1534D /* CoreMotion.framework in Frameworks */,
 				05C908811974572C00A1534D /* CoreGraphics.framework in Frameworks */,
 				05C908831974572C00A1534D /* UIKit.framework in Frameworks */,
+				052C4BA319FB1E3D000EECD5 /* Crashlytics.framework in Frameworks */,
 				05C9087F1974572C00A1534D /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,6 +98,7 @@
 			files = (
 				05C908A11974572C00A1534D /* XCTest.framework in Frameworks */,
 				05C908A31974572C00A1534D /* UIKit.framework in Frameworks */,
+				052C4BA419FB1E3D000EECD5 /* Crashlytics.framework in Frameworks */,
 				05C908A21974572C00A1534D /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -123,6 +128,7 @@
 		05C9087D1974572C00A1534D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				052C4BA219FB1E3D000EECD5 /* Crashlytics.framework */,
 				054D0D5919D5DAFD00C0C1A3 /* CoreLocation.framework */,
 				05C908B61974573D00A1534D /* CoreMotion.framework */,
 				05C9087E1974572C00A1534D /* Foundation.framework */,
@@ -195,6 +201,7 @@
 				05C908771974572C00A1534D /* Sources */,
 				05C908781974572C00A1534D /* Frameworks */,
 				05C908791974572C00A1534D /* Resources */,
+				052C4B9919FB17E1000EECD5 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -288,6 +295,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		052C4B9919FB17E1000EECD5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run 97a18a5f3c4668735062ae7ecfc8f9590bb9428f cf1390461d462dce502dcef562b25fb77f959471f51c1b3f433676b0462fb747";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		05C908771974572C00A1534D /* Sources */ = {
@@ -391,7 +414,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -436,6 +459,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/jbehrbaum/Desktop,
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreMotionCapture/CoreMotionCapture-Prefix.pch";
 				INFOPLIST_FILE = "CoreMotionCapture/CoreMotionCapture-Info.plist";
@@ -450,6 +478,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/jbehrbaum/Desktop,
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreMotionCapture/CoreMotionCapture-Prefix.pch";
 				INFOPLIST_FILE = "CoreMotionCapture/CoreMotionCapture-Info.plist";
@@ -466,6 +499,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreMotionCapture/CoreMotionCapture-Prefix.pch";
@@ -488,6 +522,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreMotionCapture/CoreMotionCapture-Prefix.pch";

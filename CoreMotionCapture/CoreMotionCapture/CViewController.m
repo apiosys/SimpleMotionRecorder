@@ -125,7 +125,7 @@
 	if(self.bIsRunning == FALSE)
 		return;
 
-	[self.activityWheel startAnimating];
+	//[self.activityWheel startAnimating];
 	self.btnStopRecording.enabled = self.btnStartRecording.enabled = FALSE;
 
 	self.bIsRunning = FALSE;

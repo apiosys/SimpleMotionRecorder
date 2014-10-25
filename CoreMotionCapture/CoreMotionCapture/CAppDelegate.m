@@ -2,6 +2,8 @@
 #import <CoreMotion/CoreMotion.h>
 #import <CoreLocation/CoreLocation.h>
 
+#import <Crashlytics/Crashlytics.h>
+
 #import "CAppDelegate.h"
 
 @implementation CAppDelegate
@@ -34,6 +36,7 @@
 
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	[Crashlytics startWithAPIKey:@"97a18a5f3c4668735062ae7ecfc8f9590bb9428f"];
 	[UIApplication sharedApplication].idleTimerDisabled = YES;
 
 	// Override point for customization after application launch.
