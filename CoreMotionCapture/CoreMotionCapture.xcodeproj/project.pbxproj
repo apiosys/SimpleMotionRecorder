@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		052C4BA319FB1E3D000EECD5 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 052C4BA219FB1E3D000EECD5 /* Crashlytics.framework */; };
-		052C4BA419FB1E3D000EECD5 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 052C4BA219FB1E3D000EECD5 /* Crashlytics.framework */; };
 		052C864F19F7EE3D009CE883 /* CInfoQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C864E19F7EE3D009CE883 /* CInfoQueue.m */; };
 		052C865019F7EE3D009CE883 /* CInfoQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C864E19F7EE3D009CE883 /* CInfoQueue.m */; };
 		053BF48C19E3159D000DE3B0 /* FieldRequirements.txt in Resources */ = {isa = PBXBuildFile; fileRef = 053BF48A19E3159D000DE3B0 /* FieldRequirements.txt */; };
@@ -45,7 +43,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		052C4BA219FB1E3D000EECD5 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		052C864D19F7EE3D009CE883 /* CInfoQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CInfoQueue.h; sourceTree = "<group>"; };
 		052C864E19F7EE3D009CE883 /* CInfoQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CInfoQueue.m; sourceTree = "<group>"; };
 		053BF48A19E3159D000DE3B0 /* FieldRequirements.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FieldRequirements.txt; sourceTree = "<group>"; };
@@ -87,7 +84,6 @@
 				05C908B71974573D00A1534D /* CoreMotion.framework in Frameworks */,
 				05C908811974572C00A1534D /* CoreGraphics.framework in Frameworks */,
 				05C908831974572C00A1534D /* UIKit.framework in Frameworks */,
-				052C4BA319FB1E3D000EECD5 /* Crashlytics.framework in Frameworks */,
 				05C9087F1974572C00A1534D /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -98,7 +94,6 @@
 			files = (
 				05C908A11974572C00A1534D /* XCTest.framework in Frameworks */,
 				05C908A31974572C00A1534D /* UIKit.framework in Frameworks */,
-				052C4BA419FB1E3D000EECD5 /* Crashlytics.framework in Frameworks */,
 				05C908A21974572C00A1534D /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -128,7 +123,6 @@
 		05C9087D1974572C00A1534D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				052C4BA219FB1E3D000EECD5 /* Crashlytics.framework */,
 				054D0D5919D5DAFD00C0C1A3 /* CoreLocation.framework */,
 				05C908B61974573D00A1534D /* CoreMotion.framework */,
 				05C9087E1974572C00A1534D /* Foundation.framework */,
@@ -414,9 +408,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -450,6 +446,7 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
 		};

@@ -125,7 +125,7 @@
 	if(self.bIsRunning == FALSE)
 		return;
 
-	//[self.activityWheel startAnimating];
+	[self.activityWheel startAnimating];
 	self.btnStopRecording.enabled = self.btnStartRecording.enabled = FALSE;
 
 	self.bIsRunning = FALSE;
@@ -150,6 +150,9 @@
 	//Stop everything before you get here
 	CMotionLogger *logger = [CMotionLogger theLogger];
 	[logger finishWritingCurrentDataSet];
+
+	[self.activityWheel stopAnimating];
+	self.btnStopRecording.enabled = self.btnStartRecording.enabled = TRUE;
 
 	self.txtvwAccel.text = self.txtvwGyro.text = self.txtvwLocation.text = self.txtvwMotion.text = nil;
 }
