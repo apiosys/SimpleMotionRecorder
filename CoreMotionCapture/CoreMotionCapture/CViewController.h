@@ -11,7 +11,7 @@
 
 #import "CMotionLogger.h"
 
-@interface CViewController : UIViewController<CLLocationManagerDelegate, PLogerDelegate>
+@interface CViewController : UIViewController<CLLocationManagerDelegate, UITextViewDelegate>
 
 @property(nonatomic, weak) IBOutlet UILabel *lblAppInfo;
 

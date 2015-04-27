@@ -7,12 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		052C864F19F7EE3D009CE883 /* CInfoQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C864E19F7EE3D009CE883 /* CInfoQueue.m */; };
-		052C865019F7EE3D009CE883 /* CInfoQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 052C864E19F7EE3D009CE883 /* CInfoQueue.m */; };
 		053BF48C19E3159D000DE3B0 /* FieldRequirements.txt in Resources */ = {isa = PBXBuildFile; fileRef = 053BF48A19E3159D000DE3B0 /* FieldRequirements.txt */; };
 		053BF48D19E3159D000DE3B0 /* TemplateIcon2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 053BF48B19E3159D000DE3B0 /* TemplateIcon2x.png */; };
 		054D0D5819D5D90E00C0C1A3 /* CSensorSampleInfoContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 054D0D5719D5D90E00C0C1A3 /* CSensorSampleInfoContainer.m */; };
 		054D0D5A19D5DAFD00C0C1A3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054D0D5919D5DAFD00C0C1A3 /* CoreLocation.framework */; };
+		056AC01C1AEA8F4C001ADC86 /* STAccelerometerMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 056AC00D1AEA8F4C001ADC86 /* STAccelerometerMonitor.m */; };
+		056AC01D1AEA8F4C001ADC86 /* STActivityMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 056AC00F1AEA8F4C001ADC86 /* STActivityMonitor.m */; };
+		056AC01E1AEA8F4C001ADC86 /* STGpsMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 056AC0111AEA8F4C001ADC86 /* STGpsMonitor.m */; };
+		056AC01F1AEA8F4C001ADC86 /* STGyroMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 056AC0131AEA8F4C001ADC86 /* STGyroMonitor.m */; };
+		056AC0201AEA8F4C001ADC86 /* STMagnetrometerMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 056AC0151AEA8F4C001ADC86 /* STMagnetrometerMonitor.m */; };
+		056AC0211AEA8F4C001ADC86 /* STMotionMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 056AC0171AEA8F4C001ADC86 /* STMotionMonitor.m */; };
+		056AC0221AEA8F4C001ADC86 /* STProximityMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 056AC0191AEA8F4C001ADC86 /* STProximityMonitor.m */; };
+		056AC0231AEA8F4C001ADC86 /* STSensorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 056AC01B1AEA8F4C001ADC86 /* STSensorManager.m */; };
 		05C9087F1974572C00A1534D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9087E1974572C00A1534D /* Foundation.framework */; };
 		05C908811974572C00A1534D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C908801974572C00A1534D /* CoreGraphics.framework */; };
 		05C908831974572C00A1534D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C908821974572C00A1534D /* UIKit.framework */; };
@@ -43,14 +49,30 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		052C864D19F7EE3D009CE883 /* CInfoQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CInfoQueue.h; sourceTree = "<group>"; };
-		052C864E19F7EE3D009CE883 /* CInfoQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CInfoQueue.m; sourceTree = "<group>"; };
 		053BF48A19E3159D000DE3B0 /* FieldRequirements.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FieldRequirements.txt; sourceTree = "<group>"; };
 		053BF48B19E3159D000DE3B0 /* TemplateIcon2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TemplateIcon2x.png; sourceTree = "<group>"; };
 		054D0D5619D5D90E00C0C1A3 /* CSensorSampleInfoContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSensorSampleInfoContainer.h; sourceTree = "<group>"; };
 		054D0D5719D5D90E00C0C1A3 /* CSensorSampleInfoContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSensorSampleInfoContainer.m; sourceTree = "<group>"; };
 		054D0D5919D5DAFD00C0C1A3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		05C9087B1974572C00A1534D /* CoreMotionCapture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreMotionCapture.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		056AC00A1AEA8F4C001ADC86 /* SensorModuleProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SensorModuleProtocols.h; path = CoreMotionCapture/SensorModules/SensorModuleProtocols.h; sourceTree = "<group>"; };
+		056AC00B1AEA8F4C001ADC86 /* SensorMonitoringDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SensorMonitoringDefs.h; path = CoreMotionCapture/SensorModules/SensorMonitoringDefs.h; sourceTree = "<group>"; };
+		056AC00C1AEA8F4C001ADC86 /* STAccelerometerMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STAccelerometerMonitor.h; path = CoreMotionCapture/SensorModules/STAccelerometerMonitor.h; sourceTree = "<group>"; };
+		056AC00D1AEA8F4C001ADC86 /* STAccelerometerMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STAccelerometerMonitor.m; path = CoreMotionCapture/SensorModules/STAccelerometerMonitor.m; sourceTree = "<group>"; };
+		056AC00E1AEA8F4C001ADC86 /* STActivityMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STActivityMonitor.h; path = CoreMotionCapture/SensorModules/STActivityMonitor.h; sourceTree = "<group>"; };
+		056AC00F1AEA8F4C001ADC86 /* STActivityMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STActivityMonitor.m; path = CoreMotionCapture/SensorModules/STActivityMonitor.m; sourceTree = "<group>"; };
+		056AC0101AEA8F4C001ADC86 /* STGpsMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STGpsMonitor.h; path = CoreMotionCapture/SensorModules/STGpsMonitor.h; sourceTree = "<group>"; };
+		056AC0111AEA8F4C001ADC86 /* STGpsMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STGpsMonitor.m; path = CoreMotionCapture/SensorModules/STGpsMonitor.m; sourceTree = "<group>"; };
+		056AC0121AEA8F4C001ADC86 /* STGyroMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STGyroMonitor.h; path = CoreMotionCapture/SensorModules/STGyroMonitor.h; sourceTree = "<group>"; };
+		056AC0131AEA8F4C001ADC86 /* STGyroMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STGyroMonitor.m; path = CoreMotionCapture/SensorModules/STGyroMonitor.m; sourceTree = "<group>"; };
+		056AC0141AEA8F4C001ADC86 /* STMagnetrometerMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STMagnetrometerMonitor.h; path = CoreMotionCapture/SensorModules/STMagnetrometerMonitor.h; sourceTree = "<group>"; };
+		056AC0151AEA8F4C001ADC86 /* STMagnetrometerMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STMagnetrometerMonitor.m; path = CoreMotionCapture/SensorModules/STMagnetrometerMonitor.m; sourceTree = "<group>"; };
+		056AC0161AEA8F4C001ADC86 /* STMotionMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STMotionMonitor.h; path = CoreMotionCapture/SensorModules/STMotionMonitor.h; sourceTree = "<group>"; };
+		056AC0171AEA8F4C001ADC86 /* STMotionMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STMotionMonitor.m; path = CoreMotionCapture/SensorModules/STMotionMonitor.m; sourceTree = "<group>"; };
+		056AC0181AEA8F4C001ADC86 /* STProximityMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STProximityMonitor.h; path = CoreMotionCapture/SensorModules/STProximityMonitor.h; sourceTree = "<group>"; };
+		056AC0191AEA8F4C001ADC86 /* STProximityMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STProximityMonitor.m; path = CoreMotionCapture/SensorModules/STProximityMonitor.m; sourceTree = "<group>"; };
+		056AC01A1AEA8F4C001ADC86 /* STSensorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STSensorManager.h; path = CoreMotionCapture/SensorModules/STSensorManager.h; sourceTree = "<group>"; };
+		056AC01B1AEA8F4C001ADC86 /* STSensorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STSensorManager.m; path = CoreMotionCapture/SensorModules/STSensorManager.m; sourceTree = "<group>"; };
+		05C9087B1974572C00A1534D /* DataCapture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DataCapture.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05C9087E1974572C00A1534D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		05C908801974572C00A1534D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		05C908821974572C00A1534D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -101,9 +123,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		056AC0091AEA8F34001ADC86 /* SensorModules */ = {
+			isa = PBXGroup;
+			children = (
+				056AC00A1AEA8F4C001ADC86 /* SensorModuleProtocols.h */,
+				056AC00B1AEA8F4C001ADC86 /* SensorMonitoringDefs.h */,
+				056AC00C1AEA8F4C001ADC86 /* STAccelerometerMonitor.h */,
+				056AC00D1AEA8F4C001ADC86 /* STAccelerometerMonitor.m */,
+				056AC00E1AEA8F4C001ADC86 /* STActivityMonitor.h */,
+				056AC00F1AEA8F4C001ADC86 /* STActivityMonitor.m */,
+				056AC0101AEA8F4C001ADC86 /* STGpsMonitor.h */,
+				056AC0111AEA8F4C001ADC86 /* STGpsMonitor.m */,
+				056AC0121AEA8F4C001ADC86 /* STGyroMonitor.h */,
+				056AC0131AEA8F4C001ADC86 /* STGyroMonitor.m */,
+				056AC0141AEA8F4C001ADC86 /* STMagnetrometerMonitor.h */,
+				056AC0151AEA8F4C001ADC86 /* STMagnetrometerMonitor.m */,
+				056AC0161AEA8F4C001ADC86 /* STMotionMonitor.h */,
+				056AC0171AEA8F4C001ADC86 /* STMotionMonitor.m */,
+				056AC0181AEA8F4C001ADC86 /* STProximityMonitor.h */,
+				056AC0191AEA8F4C001ADC86 /* STProximityMonitor.m */,
+				056AC01A1AEA8F4C001ADC86 /* STSensorManager.h */,
+				056AC01B1AEA8F4C001ADC86 /* STSensorManager.m */,
+			);
+			name = SensorModules;
+			sourceTree = "<group>";
+		};
 		05C908721974572C00A1534D = {
 			isa = PBXGroup;
 			children = (
+				056AC0091AEA8F34001ADC86 /* SensorModules */,
 				05C908841974572C00A1534D /* CoreMotionCapture */,
 				05C908A61974572C00A1534D /* CoreMotionCaptureTests */,
 				05C9087D1974572C00A1534D /* Frameworks */,
@@ -114,7 +162,7 @@
 		05C9087C1974572C00A1534D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				05C9087B1974572C00A1534D /* CoreMotionCapture.app */,
+				05C9087B1974572C00A1534D /* DataCapture.app */,
 				05C9089F1974572C00A1534D /* CoreMotionCaptureTests.xctest */,
 			);
 			name = Products;
@@ -138,17 +186,13 @@
 			children = (
 				05C9088D1974572C00A1534D /* CAppDelegate.h */,
 				05C9088E1974572C00A1534D /* CAppDelegate.m */,
-				052C864D19F7EE3D009CE883 /* CInfoQueue.h */,
-				052C864E19F7EE3D009CE883 /* CInfoQueue.m */,
 				05C908BB19746F2200A1534D /* CMotionLogger.h */,
 				05C908BC19746F2200A1534D /* CMotionLogger.m */,
 				05C908901974572C00A1534D /* Main_iPhone.storyboard */,
-				05C908931974572C00A1534D /* Main_iPad.storyboard */,
 				05C908961974572C00A1534D /* CViewController.h */,
 				05C908971974572C00A1534D /* CViewController.m */,
 				054D0D5619D5D90E00C0C1A3 /* CSensorSampleInfoContainer.h */,
 				054D0D5719D5D90E00C0C1A3 /* CSensorSampleInfoContainer.m */,
-				05C908991974572C00A1534D /* Images.xcassets */,
 				05C908851974572C00A1534D /* Supporting Files */,
 			);
 			path = CoreMotionCapture;
@@ -157,6 +201,8 @@
 		05C908851974572C00A1534D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				05C908991974572C00A1534D /* Images.xcassets */,
+				05C908931974572C00A1534D /* Main_iPad.storyboard */,
 				05C908861974572C00A1534D /* CoreMotionCapture-Info.plist */,
 				05C908871974572C00A1534D /* InfoPlist.strings */,
 				05C9088A1974572C00A1534D /* main.m */,
@@ -203,7 +249,7 @@
 			);
 			name = CoreMotionCapture;
 			productName = CoreMotionCapture;
-			productReference = 05C9087B1974572C00A1534D /* CoreMotionCapture.app */;
+			productReference = 05C9087B1974572C00A1534D /* DataCapture.app */;
 			productType = "com.apple.product-type.application";
 		};
 		05C9089E1974572C00A1534D /* CoreMotionCaptureTests */ = {
@@ -231,7 +277,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = C;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Apio Systems";
 				TargetAttributes = {
 					05C9087A1974572C00A1534D = {
@@ -311,11 +357,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				056AC0201AEA8F4C001ADC86 /* STMagnetrometerMonitor.m in Sources */,
 				05C9088F1974572C00A1534D /* CAppDelegate.m in Sources */,
-				052C864F19F7EE3D009CE883 /* CInfoQueue.m in Sources */,
+				056AC01F1AEA8F4C001ADC86 /* STGyroMonitor.m in Sources */,
 				05C9088B1974572C00A1534D /* main.m in Sources */,
+				056AC01E1AEA8F4C001ADC86 /* STGpsMonitor.m in Sources */,
 				05C908981974572C00A1534D /* CViewController.m in Sources */,
+				056AC01C1AEA8F4C001ADC86 /* STAccelerometerMonitor.m in Sources */,
+				056AC0221AEA8F4C001ADC86 /* STProximityMonitor.m in Sources */,
+				056AC01D1AEA8F4C001ADC86 /* STActivityMonitor.m in Sources */,
+				056AC0231AEA8F4C001ADC86 /* STSensorManager.m in Sources */,
 				05C908BD19746F2200A1534D /* CMotionLogger.m in Sources */,
+				056AC0211AEA8F4C001ADC86 /* STMotionMonitor.m in Sources */,
 				054D0D5819D5D90E00C0C1A3 /* CSensorSampleInfoContainer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -325,7 +378,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				05C908AD1974572C00A1534D /* CoreMotionCaptureTests.m in Sources */,
-				052C865019F7EE3D009CE883 /* CInfoQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,7 +461,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "";
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
@@ -453,6 +505,10 @@
 		05C908B11974572C00A1534D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					armv7,
+					armv6,
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -464,7 +520,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreMotionCapture/CoreMotionCapture-Prefix.pch";
 				INFOPLIST_FILE = "CoreMotionCapture/CoreMotionCapture-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = DataCapture;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -472,6 +528,10 @@
 		05C908B21974572C00A1534D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					armv7,
+					armv6,
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -483,7 +543,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreMotionCapture/CoreMotionCapture-Prefix.pch";
 				INFOPLIST_FILE = "CoreMotionCapture/CoreMotionCapture-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = DataCapture;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

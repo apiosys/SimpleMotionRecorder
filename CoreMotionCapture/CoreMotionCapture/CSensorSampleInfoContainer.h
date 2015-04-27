@@ -28,6 +28,7 @@
 @property(nonatomic, strong) CMMagnetometerData *magnetrometerData;
 @property(nonatomic, strong) CMAccelerometerData *rawAcceleration;
 
--(NSString *)printableString;
+-(BOOL)stopSensors;
+-(BOOL)startSensors;
 
 @end

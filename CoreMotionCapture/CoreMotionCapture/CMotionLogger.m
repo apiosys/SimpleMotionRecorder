@@ -1,83 +1,42 @@
 #import "CMotionLogger.h"
-#import "CInfoQueue.h"
 #import "CSensorSampleInfoContainer.h"
+#import "STSensorManager.h"
 
 @interface CMotionLogger()
-	@property(atomic) BOOL bFinishWritingData;
-	@property(nonatomic, strong) NSCondition *semaphore;
-
-	@property(nonatomic, strong) NSObject *mtxArrObj;
-	@property(nonatomic, strong) NSObject *mtxFileObj;
-	@property(nonatomic, strong) CInfoQueue *queEntries;
-	@property(nonatomic, strong) NSThread *writingThread;
+	@property(nonatomic, strong) NSDateFormatter *dtFmtr;
 	@property(nonatomic, strong) NSFileHandle *fileHandle;
-	@property(nonatomic, strong) NSMutableArray *arrAttitudeInfo;
-	@property(nonatomic, strong) NSMutableArray *arrHashTableOfInfo;
+	@property(nonatomic, strong) NSString *deviceNameStr;
 
-	-(void)writeOutEntries;
 	-(NSString *)retreiveCurrentFilePathAndName;
 	-(NSData *)dataForFileWrite:(NSString *)dataString;
 	-(NSFileHandle *)createAndOpenFileAtPath:(NSString *)path;
-	-(BOOL)writeCurrentData:(CSensorSampleInfoContainer *)sensorInfo;
+	-(BOOL)writeCurrentData:(NSString *)sensorInfo;
 @end
 
 @implementation CMotionLogger
 
-@synthesize mtxArrObj = _mtxArrObj;
-@synthesize semaphore = _semaphore;
-@synthesize mtxFileObj = _mtxFileObj;
 @synthesize fileHandle = _fileHandle;
-@synthesize queEntries = _queEntries;
-@synthesize logDelegate = _logDelegate;
-@synthesize arrAttitudeInfo = _arrAttitudeInfo;
-@synthesize arrHashTableOfInfo = _arrHashTableOfInfo;
 
--(NSObject *)mtxArrObj
+-(NSDateFormatter *)dtFmtr
 {
-	if(_mtxArrObj == nil)
-		_mtxArrObj = [[NSObject alloc]init];
+	if(_dtFmtr == nil)
+	{
+		_dtFmtr = [[NSDateFormatter alloc]init];
+		[_dtFmtr setDateFormat:@"yyyyMMdd HHmmss.SSS"];
+	}
 	
-	return _mtxArrObj;
+	return _dtFmtr;
 }
 
--(NSObject *)mtxFileObj
+-(NSString *)deviceNameStr
 {
-	if(_mtxFileObj == nil)
-		_mtxFileObj = [[NSObject alloc]init];
+	if(_deviceNameStr == nil)
+	{
+		NSCharacterSet *unallowedFileNameCharacters = [NSCharacterSet characterSetWithCharactersInString:@"_'\":*&^%$#@!~`<>?/\\{}[]=+ "];
+		_deviceNameStr = [[[UIDevice currentDevice].name componentsSeparatedByCharactersInSet:unallowedFileNameCharacters] componentsJoinedByString:@""];
+	}
 
-	return _mtxFileObj;
-}
-
--(NSCondition *)semaphore
-{
-	if(_semaphore == nil)
-		_semaphore = [[NSCondition alloc]init];
-	
-	return _semaphore;
-}
-
--(CInfoQueue *)queEntries
-{
-	if(_queEntries == nil)
-		_queEntries = [[CInfoQueue alloc]init];
-
-	return _queEntries;
-}
-
--(NSMutableArray *)arrHashTableOfInfo
-{
-	if(_arrHashTableOfInfo == nil)
-		_arrHashTableOfInfo = [[NSMutableArray alloc]init];
-
-	return _arrHashTableOfInfo;
-}
-
--(NSMutableArray *)arrAttitudeInfo
-{
-	if(_arrAttitudeInfo == nil)
-		_arrAttitudeInfo = [[NSMutableArray alloc]init];
-	
-	return _arrAttitudeInfo;
+	return _deviceNameStr;
 }
 
 +(CMotionLogger *)theLogger
@@ -95,95 +54,80 @@
 
 -(void)markAsStartDataCaptureTime
 {
-	self.bFinishWritingData = FALSE;
-
 	if(self.fileHandle != nil)
 		[self.fileHandle closeFile];
-	
-	if( (self.arrHashTableOfInfo != nil) || (self.arrHashTableOfInfo.count > 0) )
-		[self.arrHashTableOfInfo removeAllObjects];
-	
-	if( (self.arrAttitudeInfo != nil) || (self.arrAttitudeInfo.count > 0) )
-		[self.arrAttitudeInfo removeAllObjects];
 
 	self.fileHandle = [self createAndOpenFileAtPath:[self retreiveCurrentFilePathAndName]];
-	
-	self.writingThread = [[NSThread alloc] initWithTarget:self selector:@selector(writeOutEntries) object:nil];
-	//[self.writingThread start];
 }
 
--(void)finishWritingCurrentDataSet
+-(void)logTexting:(BOOL)bIsStarting
 {
-	self.bFinishWritingData = TRUE;
-//	[self.semaphore signal];
-}
-
--(void)writeOutEntries
-{
-	[self.semaphore lock];
-
-	while( ([[NSThread currentThread] isCancelled] == NO) && (self.bFinishWritingData == FALSE) )
-	{
-		[self.semaphore wait];
-
-		@synchronized(self.mtxFileObj)
-		{
-			[self writeCurrentData:(CSensorSampleInfoContainer *)[self.queEntries dequeue]];
-		}
-
-		if(self.bFinishWritingData == TRUE)
-		{
-			BOOL bWriteStat = FALSE;
-
-			do
-			{
-				@synchronized(self.mtxFileObj)
-				{
-					bWriteStat = [self writeCurrentData:(CSensorSampleInfoContainer *)[self.queEntries dequeue]];
-				}
-			}while (bWriteStat != FALSE);
-		}
-	}
-
-	@synchronized(self.mtxFileObj)
-	{
-		[self.fileHandle closeFile];
-		self.fileHandle = nil;
-	}
-
-	[self.semaphore unlock];
-
-	if(self.logDelegate != nil)
-		[self.logDelegate allDataWritten];
-}
-
--(void)addSensorSample:(CSensorSampleInfoContainer *)sensorInfo
-{
-	if(sensorInfo == nil)
-		return;
+	NSString *eventStr = @"EVENT:Texting:";
+	eventStr = [eventStr stringByAppendingString:[NSString stringWithFormat:@"%@\n", (bIsStarting == TRUE) ? @"STARTED" : @"STOPPED"]];
 	
 	@try
 	{
-		if([self writeCurrentData:sensorInfo] == FALSE)
-			return;
+		if([self writeCurrentData:eventStr] == FALSE)
+			NSLog(@"Error writing the texting information");
 	}
-	@catch(NSException *exception)
+	@catch (NSException *exception)
 	{
-		NSLog(@"All jacked!: %@", exception.description);
+		NSLog(@"Execption on write attempt: %@", exception.debugDescription);
 	}
-	@finally
-	{}
-
-//	[self.queEntries enqueue:sensorInfo];
-//	[self.semaphore signal];
 }
 
--(BOOL)writeCurrentData:(CSensorSampleInfoContainer *)sensorInfo
+-(void)logPhoneCall:(BOOL)bIsStarting
+{
+	NSString *eventStr = @"EVENT:PhoneCall:";
+	eventStr = [eventStr stringByAppendingString:[NSString stringWithFormat:@"%@\n", (bIsStarting == TRUE) ? @"STARTED" : @"STOPPED"]];
+	
+	@try
+	{
+		if([self writeCurrentData:eventStr] == FALSE)
+			NSLog(@"Error writing the Phone Call information");
+	}
+	@catch (NSException *exception)
+	{
+		NSLog(@"Execption on write attempt: %@", exception.debugDescription);
+	}
+}
+
+-(void)logGeneralHandling:(BOOL)bIsStarting
+{
+	NSString *eventStr = @"EVENT:GeneralHandling:";
+	eventStr = [eventStr stringByAppendingString:[NSString stringWithFormat:@"%@\n", (bIsStarting == TRUE) ? @"STARTED" : @"STOPPED"]];
+	
+	@try
+	{
+		if([self writeCurrentData:eventStr] == FALSE)
+			NSLog(@"Error writing the Phone Call information");
+	}
+	@catch (NSException *exception)
+	{
+		NSLog(@"Execption on write attempt: %@", exception.debugDescription);
+	}
+}
+
+-(void)writeCurrentSamplesToLogFile
+{
+	STSensorManager *sensorMgr = [STSensorManager theSensorManager];
+	
+	@try
+	{
+		[self writeCurrentData:[sensorMgr printableString:[self.dtFmtr stringFromDate:[NSDate date]]]];
+	}
+	@catch (NSException *exception)
+	{
+		NSLog(@"Execption on write attempt: %@", exception.debugDescription);
+	}
+}
+
+-(BOOL)writeCurrentData:(NSString *)sensorInfo
 {
 	if(sensorInfo == nil)
 		return FALSE;
 
-	NSData *fileData = [self dataForFileWrite:[sensorInfo printableString]];
+	NSData *fileData = [self dataForFileWrite:sensorInfo];
 
 	BOOL bRetStat = TRUE;
 	if(self.fileHandle != nil)
@@ -207,7 +151,7 @@
 	[fmtr setLocale:usLocal];
 
 	//make a file name to write the data to using the documents directory:
-	NSString *fileName = [NSString stringWithFormat:@"%@_log.txt", [fmtr stringFromDate:[NSDate date]]];
+	NSString *fileName = [NSString stringWithFormat:@"%@_%@_log.txt", self.deviceNameStr, [fmtr stringFromDate:[NSDate date]]];
 	fileName = [documentsDirectory stringByAppendingPathComponent:fileName];
 
 	return fileName;

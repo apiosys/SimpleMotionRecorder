@@ -3,61 +3,61 @@
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "TestCaptureAppIcon-3.png",
+      "filename" : "Settings icon@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "TestCaptureAppIcon-2.png",
+      "filename" : "Spotlight Search icon @2x.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "TestCaptureAppIcon120.png",
+      "filename" : "App icon @2x.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "TestCaptureAppIcon180.png",
+      "filename" : "App icon @3x.png",
       "scale" : "3x"
     },
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "TestCaptureAppIcon-4.png",
+      "filename" : "Settings icon.png",
       "scale" : "1x"
     },
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "TestCaptureAppIcon-5.png",
+      "filename" : "Settings icon@2x-1.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "TestCaptureAppIcon-6.png",
+      "filename" : "Spotlight Search icon.png",
       "scale" : "1x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "TestCaptureAppIcon-7.png",
+      "filename" : "Spotlight Search icon @2x-1.png",
       "scale" : "2x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "TestCaptureAppIcon-9.png",
+      "filename" : "iPad icon.png",
       "scale" : "1x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "TestCaptureAppIcon-8.png",
+      "filename" : "iPad icon @2x.png",
       "scale" : "2x"
     }
   ],
