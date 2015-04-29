@@ -18,12 +18,18 @@
 @interface CViewController ()
 
 @property(nonatomic) BOOL bIsRunning;
+@property(nonatomic, weak) IBOutlet UIButton *btnAtStop;
+@property(nonatomic, weak) IBOutlet UIButton *btnStartMove;
+
 @property(nonatomic, weak) IBOutlet UIButton *btnStopRecording;
 @property(nonatomic, weak) IBOutlet UIButton *btnStartRecording;
 @property (weak, nonatomic) IBOutlet UIButton *btnStartStopPhoneCall;
 @property (weak, nonatomic) IBOutlet UIButton *btnStartStopGeneralHandling;
 
 @property(nonatomic, weak) IBOutlet UIActivityIndicatorView *activityWheel;
+
+-(IBAction)onAtStop:(UIButton *)sender;
+-(IBAction)onStartMove:(UIButton *)sender;
 
 -(IBAction)onStopSensors:(UIButton *)sender;
 -(IBAction)onStartSensors:(UIButton *)sender;
@@ -92,6 +98,16 @@
 	return TRUE;
 }
 
+-(IBAction)onAtStop:(UIButton *)sender
+{
+	[[CMotionLogger theLogger] logStartStopMoving:TRUE];
+}
+
+-(IBAction)onStartMove:(UIButton *)sender
+{
+	[[CMotionLogger theLogger] logStartStopMoving:FALSE];
+}
+
 -(IBAction)onPhoneCallSimulation:(UIButton *)sender
 {
 	if(self.bIsRunning == FALSE)
@@ -137,6 +153,8 @@
 	if(self.bIsRunning == TRUE)
 		return;
 
+	self.btnAtStop.backgroundColor =
+	self.btnStartMove.backgroundColor =
 	self.btnStopRecording.backgroundColor =
 	self.btnStartRecording.backgroundColor =
 	self.btnStartStopPhoneCall.backgroundColor =
@@ -158,6 +176,8 @@
 	if(self.bIsRunning == FALSE)
 		return;
 
+	self.btnAtStop.backgroundColor =
+	self.btnStartMove.backgroundColor =
 	self.btnStopRecording.backgroundColor =
 	self.btnStartRecording.backgroundColor =
 	self.btnStartStopPhoneCall.backgroundColor =

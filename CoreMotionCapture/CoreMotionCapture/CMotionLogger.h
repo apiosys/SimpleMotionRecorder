@@ -6,6 +6,8 @@
 
 +(CMotionLogger *)theLogger;
 
+-(void)logStartStopMoving:(BOOL)bIsAtStop;//If bIsAtStop == FALSE, it means you're moving
+
 /**
  @param: bIsStarting = TRUE (Starting to type/text) FALSE = Completed your typing/texting
  */

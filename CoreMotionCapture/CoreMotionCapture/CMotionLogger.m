@@ -60,6 +60,23 @@
 	self.fileHandle = [self createAndOpenFileAtPath:[self retreiveCurrentFilePathAndName]];
 }
 
+-(void)logStartStopMoving:(BOOL)bIsAtStop
+{
+	NSString *eventStr = @"EVENT:Moving:";
+
+	eventStr = [eventStr stringByAppendingString:[NSString stringWithFormat:@"%@\n", (bIsAtStop == TRUE) ? @"STOPPED" : @"STARTED"]];
+	
+	@try
+	{
+		if([self writeCurrentData:eventStr] == FALSE)
+			NSLog(@"Error writing the texting information");
+	}
+	@catch (NSException *exception)
+	{
+		NSLog(@"Execption on write attempt: %@", exception.debugDescription);
+	}
+}
+
 -(void)logTexting:(BOOL)bIsStarting
 {
 	NSString *eventStr = @"EVENT:Texting:";

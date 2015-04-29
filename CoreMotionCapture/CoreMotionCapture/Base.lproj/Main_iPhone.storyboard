@@ -26,7 +26,7 @@
                                         <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </activityIndicatorView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jnY-r2-4gh">
-                                        <rect key="frame" x="8" y="500" width="111" height="30"/>
+                                        <rect key="frame" x="8" y="529" width="111" height="30"/>
                                         <color key="backgroundColor" red="0.49803921568627452" green="0.49803921568627452" blue="0.49803921568627452" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="111" id="Pw3-jd-K7K"/>
@@ -40,7 +40,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gti-XE-9bl">
-                                        <rect key="frame" x="199" y="500" width="113" height="30"/>
+                                        <rect key="frame" x="199" y="529" width="113" height="30"/>
                                         <color key="backgroundColor" red="0.49803921568627452" green="0.49803921568627452" blue="0.49803921568627452" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="113" id="RdH-7J-eh5"/>
@@ -54,7 +54,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oiw-hT-hAK">
-                                        <rect key="frame" x="139" y="471" width="42" height="21"/>
+                                        <rect key="frame" x="139" y="500" width="42" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -72,7 +72,7 @@
                                         </connections>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lAD-7b-tbp">
-                                        <rect key="frame" x="8" y="307" width="304" height="56"/>
+                                        <rect key="frame" x="8" y="336" width="304" height="56"/>
                                         <color key="backgroundColor" red="0.49803921568627452" green="0.49803921568627452" blue="0.49803921568627452" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="56" id="0Ev-7v-XZU"/>
@@ -87,7 +87,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OUL-hl-m0H">
-                                        <rect key="frame" x="8" y="383" width="304" height="56"/>
+                                        <rect key="frame" x="8" y="412" width="304" height="56"/>
                                         <color key="backgroundColor" red="0.49803921568627452" green="0.49803921568627452" blue="0.49803921568627452" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="56" id="flK-7m-z8C"/>
@@ -101,6 +101,38 @@
                                             <action selector="onGeneralHandling:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="tJ9-9q-u0r"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHz-FQ-1f4">
+                                        <rect key="frame" x="175" y="271" width="137" height="42"/>
+                                        <color key="backgroundColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="42" id="WOc-b7-mL7"/>
+                                            <constraint firstAttribute="width" constant="137" id="nfT-gk-owv"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="Started Move">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onStartMove:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="p9z-Ex-8U2"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5AH-Mz-eWH">
+                                        <rect key="frame" x="8" y="271" width="105" height="42"/>
+                                        <color key="backgroundColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="42" id="Khm-V3-hOk"/>
+                                            <constraint firstAttribute="width" constant="105" id="SFI-sf-u9o"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <state key="normal" title="At Stop">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onAtStop:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ESr-5E-d0b"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="lAD-7b-tbp" secondAttribute="trailing" constant="8" id="29h-Bc-04K"/>
@@ -112,8 +144,12 @@
                                     <constraint firstAttribute="centerX" secondItem="1i6-NG-whk" secondAttribute="centerX" constant="0.5" id="7Z7-Zp-A8N"/>
                                     <constraint firstAttribute="centerX" secondItem="OUL-hl-m0H" secondAttribute="centerX" id="9sf-Pc-QsP"/>
                                     <constraint firstItem="oiw-hT-hAK" firstAttribute="top" secondItem="OUL-hl-m0H" secondAttribute="bottom" constant="32" id="9uq-C8-z1y"/>
-                                    <constraint firstItem="lAD-7b-tbp" firstAttribute="top" secondItem="zYO-pq-Zre" secondAttribute="bottom" constant="58" id="CZJ-01-3ln"/>
+                                    <constraint firstItem="5AH-Mz-eWH" firstAttribute="centerY" secondItem="PHz-FQ-1f4" secondAttribute="centerY" id="BmX-lv-glL"/>
+                                    <constraint firstItem="lAD-7b-tbp" firstAttribute="top" secondItem="zYO-pq-Zre" secondAttribute="bottom" constant="87" id="CZJ-01-3ln"/>
+                                    <constraint firstItem="5AH-Mz-eWH" firstAttribute="top" secondItem="zYO-pq-Zre" secondAttribute="bottom" constant="22" id="DIg-1j-x9g"/>
                                     <constraint firstItem="lAD-7b-tbp" firstAttribute="leading" secondItem="LjL-G1-nzt" secondAttribute="leading" constant="8" id="Dhq-X9-hYu"/>
+                                    <constraint firstItem="zYO-pq-Zre" firstAttribute="leading" secondItem="5AH-Mz-eWH" secondAttribute="leading" id="DxY-Ve-dVZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="PHz-FQ-1f4" secondAttribute="trailing" constant="8" id="Hcy-TQ-zuk"/>
                                     <constraint firstItem="OUL-hl-m0H" firstAttribute="top" secondItem="lAD-7b-tbp" secondAttribute="bottom" constant="20" id="K7j-SO-pMT"/>
                                     <constraint firstAttribute="centerX" secondItem="zYO-pq-Zre" secondAttribute="centerX" id="LEN-b2-BWD"/>
                                     <constraint firstItem="jnY-r2-4gh" firstAttribute="leading" secondItem="LjL-G1-nzt" secondAttribute="leading" constant="8" id="NKT-FA-a7n"/>
@@ -137,6 +173,8 @@
                     </view>
                     <connections>
                         <outlet property="activityWheel" destination="1i6-NG-whk" id="Mc0-8R-My7"/>
+                        <outlet property="btnAtStop" destination="5AH-Mz-eWH" id="Syo-Xr-tMA"/>
+                        <outlet property="btnStartMove" destination="PHz-FQ-1f4" id="4cr-W1-oz1"/>
                         <outlet property="btnStartRecording" destination="jnY-r2-4gh" id="weL-0Z-YhU"/>
                         <outlet property="btnStartStopGeneralHandling" destination="OUL-hl-m0H" id="4zd-YP-ILC"/>
                         <outlet property="btnStartStopPhoneCall" destination="lAD-7b-tbp" id="lhC-pb-bYy"/>
